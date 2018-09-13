@@ -1,0 +1,106 @@
+<div id="dashboard" ng-controller="dashboardCtrl">
+    <div class="headerText">
+        Report
+    </div>
+    <div ng-if="!searchIsOver" class="row noSpace" >
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12"  >
+                <input id="macAddress" type="search" placeholder="Mac address" autocomplete="on" size="25"
+                       class="buttonAndInputSize inputForSearch"
+                       ng-model="macAddress"
+                       ng-keyup="setFormat(macAddress)"
+                />
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12"  >
+                <input id="contractId" type="search" placeholder="Contract Id" autocomplete="on" size="25"
+                       class="buttonAndInputSize inputForSearch"
+                       ng-model="contractId"
+                       ng-click="autofill('contractId')"
+                />
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12"  >
+                <button class="buttonAndInputSize buttonForSearch" ng-disabled="macAddress.length + contractId.length == 0" ng-click="doSearch()">
+                    <i class="glyphicon glyphicon-refresh" style="float: left;margin-left: 5px"></i>
+                    Apply filters
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-if="searchIsOver" class="row setSpace" >
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12"  >
+                <div class="infoBar">
+                    <div class="row blueTextIB" >
+                        Currently viewing data:
+                    </div>
+                    <div class="row" >
+                        <div class="col-6 greyTextIB">MAC address:</div>
+                        <div class="col-6 blueTextIB">{{macAddress}}</div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-6 greyTextIB">Contract ID:</div>
+                        <div class="col-6 blueTextIB">{{contractId}}</div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-6 greyTextIB">City</div>
+                        <div class="col-6 blueTextIB">Budapest</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12"  >
+                <div class="row">
+                    <button class="buttonAndInputSize datePicker leftDatePicker" type="button" ng-click="pickDate(1)">1 Day</button>
+                    <button class="buttonAndInputSize datePicker rightDatePicker" type="button" ng-click="pickDate(7)">7 Days</button>
+                </div>
+                <div class="row datePickerCenter">
+                    <span><</span>
+                    <input class="possibleDates" type="text" name="daterange" value='{{startDate}}+" - "+{{endDate}}' />
+                    <span>></span>
+                    <script>
+                        $(function() {
+                            $('input[name="daterange"]').daterangepicker({
+                                locale: {
+                                    format: 'DD.MM.YYYY'
+                                },
+                                opens: 'center'
+                            }, function(start, end, label) {
+                                console.log("A new date selection was made: " + start.format('DD.MM.YYYY') + ' to ' + end.format('DD.MM.YYYY'));
+                            });
+                        });
+                    </script>
+                </div>
+
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12"  >
+                <button class="buttonAndInputSize buttonForResetSearch" ng-click="restartSearch()">
+                    Reset filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="navBar" class="row noSpace" >
+        <div class="col-md-12 col-sm-12 inOneRow noSpace">
+            <div class="emptyNavBar leftEmpty">
+            </div>
+            <button class="navBarButton"
+                    ng-click="setScreen('tables')" ng-disabled="tablesScreen">
+                Tables
+            </button>
+            <div class="emptyNavBar centerEmpty">
+            </div>
+            <button class="navBarButton" type="button"
+                    ng-click="setScreen('graphs')" ng-disabled="graphsScreen">
+                Graphs
+            </button>
+            <div class="emptyNavBar rightEmpty">
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="searchIsOver">
+        <ng-include ng-if="tablesScreen" src="'html/Tables.html'"></ng-include>
+        <ng-include ng-if="graphsScreen" src="'html/Graphs.html'"></ng-include>
+    </div>
+
+</div>

@@ -1,0 +1,645 @@
+<div id="tables" ng-controller="tablesCtrl">
+
+    <div class="row textColorInAllTables">
+
+        <div class="row">
+            <div class="col-lg-10 col-md-6 col-sm-6 col-xs-0"></div>
+            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                <button id="hgwInfo" class="showInfo" ng-click="showInfoFn()"> HGw Info <span ng-if="showInfo"><i class="glyphicon glyphicon-menu-down"></i></span> <span ng-if="!showInfo"><i class="glyphicon glyphicon-menu-up"></i></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-if="showInfo" class="fullPart bothSpace"  >
+                <div class="tablesInfoBars" style="padding-top: 15px;">
+                    <div class="tablesInfoBarsHeaderText" style="width: 100%; border-bottom: 2px solid grey; text-align: center"> HGw Info </div>
+                    <div class="row leftRightDiv">
+                        <div class="rightValuesForInfo">Wifi enabled:</div>
+                        <div class="leftValuesForInfo"><i class="glyphicon glyphicon-ok" style="color: rgb(32, 252, 143)"></i>{{dataInfo.wifi}}</div>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">HGW standard:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.standard}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">IP Address:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.ip}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Mac:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.mac}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Contract No.:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.contractNo}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Auto chanel enabled:</span>
+                        <span class="leftValuesForInfo"><i class="glyphicon glyphicon-ok" style="color: rgb(32, 252, 143)"></i>{{dataInfo.chanelEnabled}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">SSID:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.ssid}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Chanel:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.chanel}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Security</span>
+                        <span class="leftValuesForInfo">{{dataInfo.security}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Band:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.band}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Hidden SSID:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.hiddenSsid}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Bandwith:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.bandwith}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Up time:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.time}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Equipment:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.equipment}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Description:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.description}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">CMTS ID:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.cmts}}</span>
+                    </div>
+                    <div class="row leftRightDiv">
+                        <span class="rightValuesForInfo">Firmware:</span>
+                        <span class="leftValuesForInfo">{{dataInfo.firmware}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12 noSpace">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 onlyLeftSpace">
+
+                    <div ng-repeat="data in statusData" class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText">{{data.text}}</span>
+                        <button class="tablesInfoButton tablesInfoButton{{data.value}}">
+                            {{data.value}}
+                        </button>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <div class="tablesInfoButtonInOneRow" ng-repeat="data in interferenceStatusData">
+                            <span class="tablesInfoBarsHeaderText">{{data.text}}</span>
+                            <button class="tablesInfoButton tablesInfoButton{{data.value}}">
+                                {{data.value}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText">{{interferenceHGw.text}}</span>
+                        <div class="row">
+                            <div class="col-6 tablesInfoBarsPadding">
+                                <span class="tablesInfoBarsHeaderText">{{interferenceHGw.value.unifi.text}}</span>
+                                <button class="tablesInfoButton tablesInfoButton{{interferenceHGw.value.unifi.value}}">
+                                    {{interferenceHGw.value.unifi.value}}
+                                </button>
+                            </div>
+                            <div class="col-6 tablesInfoBarsPadding">
+                                <span class="tablesInfoBarsHeaderText">{{interferenceHGw.value.home.text}}</span>
+                                <button class="tablesInfoButton tablesInfoButton{{interferenceHGw.value.home.value}}">
+                                    {{interferenceHGw.value.home.value}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText">{{retransmissionStatus.text}}</span>
+                        <button class="tablesInfoButton tablesInfoButton{{retransmissionStatus.value}}">
+                            {{retransmissionStatus.value}}
+                        </button>
+                        <div class="row tablesInfoBarsPadding">
+                            <span class="rightValues">{{retransmissionStatus.status.text}}</span>
+                            <span class="leftValues">{{retransmissionStatus.status.value}}</span>
+                        </div>
+                    </div>
+
+                    <div class="tablesInfoBars">
+                        <div class="row tablesInfoBarsPadding">
+                            <span class="rightValues">Total Number Of Clients</span>
+                            <span class="leftValues">{{clientsNmb.totalNumberOfClients}}</span>
+                        </div>
+                        <div class="row tablesInfoBarsPadding">
+                            <span class="rightValues">Max. number of concurent clients</span>
+                            <span class="leftValues">{{clientsNmb.maxNumberOfConcurentClients}}</span>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText">{{combinedStatusHGw.text}}</span>
+                        <div ng-repeat="data in combinedStatusHGw.value" class="row tablesInfoBarsPadding">
+                            <span class="rightValues">{{data.text}}</span>
+                            <span class="leftValues">{{data.value}}</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 onlyLeftSpace"  >
+                    <div class="noSpace textColorInTable">
+                        <div class="topPart">
+                            <span class="tablesInfoBarsHeaderText">HGw Bitrate [Mbps]</span>
+                            <div class="row">
+                                <div class="col-4 rightBorder">
+                                    KPI Name
+                                </div>
+                                <div class="col-8 noSpace">
+                                    <div class="row">
+                                        <div class="col-3">Min</div>
+                                        <div class="col-3">Avg</div>
+                                        <div class="col-3">Max</div>
+                                        <div class="col-3">Last</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomPart">
+                            <div class="row">
+                                <div class="col-4 rightBorder" style="color: rgb(0, 71, 117);">
+                                    Bitrate
+                                </div>
+                                <div class="col-8 noSpace">
+                                    <div class="row">
+                                        <div class="col-3">{{bitrate.min}}</div>
+                                        <div class="col-3 avgRedVale">{{bitrate.avg}}</div>
+                                        <div class="col-3">{{bitrate.max}}</div>
+                                        <div class="col-3">{{bitrate.last}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <div class="row tablesInfoBarsPadding">
+                            <span class="rightValues">HGW total traffic [GB]</span>
+                            <span class="leftValues">{{totaltrafficHGW}}</span>
+                        </div>
+                    </div>
+                    <div class="noSpace textColorInTable">
+                        <div class="topPart">
+                            <span class="tablesInfoBarsHeaderText">HGw RSS</span>
+                            <div class="row">
+                                <div class="col-4 rightBorder">
+                                    KPI Name
+                                </div>
+                                <div class="col-8 noSpace textInCenter">
+                                    <div class="row">
+                                        <div class="col-3">Min</div>
+                                        <div class="col-3">Avg</div>
+                                        <div class="col-3">Max</div>
+                                        <div class="col-3">Last</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomPart">
+                            <div class="row">
+                                <div class="col-4 rightBorder" style="color: rgb(0, 71, 117);">
+                                    RSS [dBm]
+                                </div>
+                                <div class="col-8 noSpace textInCenter">
+                                    <div class="row">
+                                        <div class="col-3">{{rss.min}}</div>
+                                        <div class="col-3 avgRedVale">{{rss.avg}}</div>
+                                        <div class="col-3">{{rss.max}}</div>
+                                        <div class="col-3">{{rss.last}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="noSpace textColorInTable">
+                        <div class="topPart">
+                            <span class="tablesInfoBarsHeaderText">HGw Interferance Network RSS</span>
+                            <div class="row">
+                                <div class="col-4 rightBorder">
+                                    KPI Name
+                                </div>
+                                <div class="col-8 noSpace textInCenter">
+                                    <div class="row">
+                                        <div class="col-4">Avg</div>
+                                        <div class="col-4">Max</div>
+                                        <div class="col-4">Last</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomPart">
+                            <div class="row">
+                                <div class="col-4 rightBorder" style="color: rgb(0, 71, 117);">
+                                    RSS [dBm]
+                                </div>
+                                <div class="col-8 noSpace textInCenter">
+                                    <div class="row">
+                                        <div class="col-4">{{rss.avg}}</div>
+                                        <div class="col-4">{{rss.max}}</div>
+                                        <div class="col-4">{{rss.last}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12 noSpace">
+
+            <div class="row">
+                <div ng-if="showInfo" class=" col-md-12 halfPart bothSpace"  >
+                    <div class="tablesInfoBars" style="padding-top: 15px;">
+                        <div class="tablesInfoBarsHeaderText" style="width: 100%; border-bottom: 2px solid grey; text-align: center"> HGw Info </div>
+                        <div class="row leftRightDiv">
+                            <div class="rightValuesForInfo">Wifi enabled:</div>
+                            <div class="leftValuesForInfo"><i class="glyphicon glyphicon-ok" style="color: rgb(32, 252, 143)"></i>{{dataInfo.wifi}}</div>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">HGW standard:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.standard}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">IP Address:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.ip}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Mac:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.mac}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Contract No.:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.contractNo}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Auto chanel enabled:</span>
+                            <span class="leftValuesForInfo"><i class="glyphicon glyphicon-ok" style="color: rgb(32, 252, 143)"></i>{{dataInfo.chanelEnabled}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">SSID:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.ssid}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Chanel:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.chanel}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Security</span>
+                            <span class="leftValuesForInfo">{{dataInfo.security}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Band:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.band}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Hidden SSID:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.hiddenSsid}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Bandwith:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.bandwith}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Up time:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.time}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Equipment:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.equipment}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Description:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.description}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">CMTS ID:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.cmts}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Firmware:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.firmware}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-{{columnNumber}} col-md-12 col-sm-12 col-xs-12 onlyLeftSpace"  >
+
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> Wifi connected time </span>
+
+                        <div class="row">
+                            <div class="container pieText">
+                                <div class="onlyDot greenDot"></div>
+                                <div class="onlyDotText">
+                                    Percent of time with connected user (s)
+                                </div>
+                            </div>
+                            <div class="container canvasAll" >
+                                <canvas id="wifiConectedTime" width="100%"></canvas>
+                            </div>
+                            <!--
+                            <div class="container canvasAll" >
+
+                                <div class="div1">
+                                    <canvas id="wifiConectedTime" width="100%"></canvas>
+                                </div>
+                                <div class="div2">
+                                    <span class="greenText">{{doughnutData[0].value[0]}}%</span>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw Wifi Usage </span>
+                        <div class="row">
+                            <div class="container pieText">
+                                <div class="row">
+                                    <div class="greenText">
+                                        {{doughnutData[1].value[0]}} %
+                                    </div>
+                                    <div class="greenDot dot"></div>
+                                    <div class="restText">Low</div>
+                                </div>
+                                <div class="row">
+                                    <div class="orangeText">
+                                        {{doughnutData[1].value[1]}} %
+                                    </div>
+                                    <div class="orangeDot dot"></div>
+                                    <div class="restText">Medium</div>
+                                </div>
+                                <div class="row">
+                                    <div class="redText">
+                                        {{doughnutData[1].value[2]}} %
+                                    </div>
+                                    <div class="redDot dot"></div>
+                                    <div class="restText">High</div>
+                                </div>
+                            </div>
+                            <div class="container canvasAll  ">
+                                <canvas id="usage" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw Interface</span>
+                        <div class="row">
+                            <div class="container pieText">
+                                <div class="row">
+                                    <div class="greenText">
+                                        {{doughnutData[2].value[0]}} %
+                                    </div>
+                                    <div class="greenDot dot"></div>
+                                    <div class="restText">Low</div>
+                                </div>
+                                <div class="row">
+                                    <div class="orangeText">
+                                        {{doughnutData[2].value[1]}} %
+                                    </div>
+                                    <div class="orangeDot dot"></div>
+                                    <div class="restText">Medium</div>
+                                </div>
+                                <div class="row">
+                                    <div class="redText">
+                                        {{doughnutData[2].value[2]}} %
+                                    </div>
+                                    <div class="redDot dot"></div>
+                                    <div class="restText">High</div>
+                                </div>
+                            </div>
+                            <div class="container canvasAll  ">
+                                <canvas id="interface" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw Interface Home </span>
+                        <div class="row">
+                        <div class="container pieText">
+                            <div class="row">
+                                <div class="greenText">
+                                    {{doughnutData[3].value[0]}} %
+                                </div>
+                                <div class="greenDot dot"></div>
+                                <div class="restText">Low</div>
+                            </div>
+                            <div class="row">
+                                <div class="orangeText">
+                                    {{doughnutData[3].value[1]}} %
+                                </div>
+                                <div class="orangeDot dot"></div>
+                                <div class="restText">Medium</div>
+                            </div>
+                            <div class="row">
+                                <div class="redText">
+                                    {{doughnutData[3].value[2]}} %
+                                </div>
+                                <div class="redDot dot"></div>
+                                <div class="restText">High</div>
+                            </div>
+                        </div>
+                        <div class="container canvasAll  ">
+                            <canvas id="interfaceHome" width="100%"></canvas>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-{{columnNumber}} col-md-12 col-sm-12 col-xs-12 bothSpace"  >
+
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw Channel </span>
+                        <div class="row">
+                            <div class="container pieText">
+                                <div class="row">
+                                    <div class="lightBlueText">
+                                        {{doughnutData[4].value[0]}} %
+                                    </div>
+                                    <div class="lightBlueDot dot"></div>
+                                    <div class="restText">Auto: Yes</div>
+                                </div>
+                                <div class="row">
+                                    <div class="blueText">
+                                        {{doughnutData[4].value[1]}} %
+                                    </div>
+                                    <div class="blueDot dot"></div>
+                                    <div class="restText">Auto: No</div>
+                                </div>
+                            </div>
+                            <div class="container canvasAll  ">
+                                <canvas id="HGwChannel" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw Percent of time with Sticky Clients </span>
+                        <div class="row">
+                            <div class="container pieText">
+                                <span class="onlyDot lightBlueDot"></span> Percent of time with Sticky Clients
+                            </div>
+                            <div class="container canvasAll">
+                                <canvas id="HGwPercentOfTime" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw Clients RSS Status</span>
+                        <div class="row">
+                            <div class="container pieText">
+                                <div class="row">
+                                    <div class="greenText">
+                                        {{doughnutData[6].value[0]}} %
+                                    </div>
+                                    <div class="greenDot dot"></div>
+                                    <div class="restText">Low</div>
+                                </div>
+                                <div class="row">
+                                    <div class="orangeText">
+                                        {{doughnutData[6].value[1]}} %
+                                    </div>
+                                    <div class="orangeDot dot"></div>
+                                    <div class="restText">Medium</div>
+                                </div>
+                                <div class="row">
+                                    <div class="redText">
+                                        {{doughnutData[6].value[2]}} %
+                                    </div>
+                                    <div class="redDot dot"></div>
+                                    <div class="restText">High</div>
+                                </div>
+                            </div>
+                            <div class="container canvasAll  ">
+                                <canvas id="HGwClientsRssStatus" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tablesInfoBars">
+                        <span class="tablesInfoBarsHeaderText"> HGw RSS Status </span>
+                        <div class="row">
+                            <div class="container pieText">
+                                <div class="row">
+                                    <div class="greenText">
+                                        {{doughnutData[7].value[0]}} %
+                                    </div>
+                                    <div class="greenDot dot"></div>
+                                    <div class="restText">Low</div>
+                                </div>
+                                <div class="row">
+                                    <div class="orangeText">
+                                        {{doughnutData[7].value[1]}} %
+                                    </div>
+                                    <div class="orangeDot dot"></div>
+                                    <div class="restText">Medium</div>
+                                </div>
+                                <div class="row">
+                                    <div class="redText">
+                                        {{doughnutData[7].value[2]}} %
+                                    </div>
+                                    <div class="redDot dot"></div>
+                                    <div class="restText">High</div>
+                                </div>
+                            </div>
+                            <div class="container canvasAll  ">
+                                <canvas id="HGwRssStatus" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div ng-if="showInfo" class="col-lg-4 col-md-12 col-sm-0 col-xs-0 smallPart onlyRightSpace"  >
+                    <div class="tablesInfoBars" style="padding-top: 15px;">
+                        <div class="tablesInfoBarsHeaderText" style="width: 100%; border-bottom: 2px solid grey; text-align: center"> HGw Info </div>
+                        <div class="row leftRightDiv">
+                            <div class="rightValuesForInfo">Wifi enabled:</div>
+                            <div class="leftValuesForInfo"><i class="glyphicon glyphicon-ok" style="color: rgb(32, 252, 143)"></i>{{dataInfo.wifi}}</div>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">HGW standard:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.standard}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">IP Address:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.ip}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Mac:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.mac}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Contract No.:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.contractNo}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Auto chanel enabled:</span>
+                            <span class="leftValuesForInfo"><i class="glyphicon glyphicon-ok" style="color: rgb(32, 252, 143)"></i>{{dataInfo.chanelEnabled}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">SSID:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.ssid}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Chanel:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.chanel}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Security</span>
+                            <span class="leftValuesForInfo">{{dataInfo.security}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Band:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.band}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Hidden SSID:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.hiddenSsid}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Bandwith:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.bandwith}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Up time:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.time}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Equipment:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.equipment}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Description:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.description}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">CMTS ID:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.cmts}}</span>
+                        </div>
+                        <div class="row leftRightDiv">
+                            <span class="rightValuesForInfo">Firmware:</span>
+                            <span class="leftValuesForInfo">{{dataInfo.firmware}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
